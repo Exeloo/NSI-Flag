@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>Pays</title>
+		<link rel="stylesheet" type="text/css" href="../MainCss.css">
+		<script type="text/javascript" src="../Js/CreateFlagPage.js"></script>
+		<script type="text/javascript" src="../Js/Description.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	</head>
+	<body>
+		<div id="navbar" class="navbar">
+			<a href="../Main.html"><i class="fa fa-home" aria-hidden="true"></i>  Home</a>
+			<a href="Map.html"><i class="fa fa-map-marker" aria-hidden="true"></i>  Carte du Monde</a>
+			<a href="#" class="actif"><i class="fa fa-bars" aria-hidden="true"></i>  Liste des Pays</a>
+			<a href="Quiz.html"><i class="fa fa-bookmark-o" aria-hidden="true"></i>  Quiz</a>
+			<a href="Faq.html"><i class="fa fa-question-circle" aria-hidden="true"></i>  Questions</a>
+		</div>
+
+		<div id="content" class="content">
+			<div class="contentHead" id="contentHead">
+				<div class="title">
+					Liste des Pays
+				</div>
+				<div class="subTitle">
+					dont on a créé le drapeau
+				</div>
+			</div>
+			<script>
+				axios.get("http://localhost:8000/Flags").then((reponse) => {
+					var list = [];
+					for (flag of reponse.data) {
+						flag = flag.replaceAll('_', ' ')
+						flag = flag.replace('dI', "d'I")
+
+						var a = document.createElement('a');
+						a.className = 'flagA';
+						a.id = flag;
+						a.href = '#'
+						a.innerHTML = '<i class="fa fa-caret-right" aria-hidden="true"></i> ' + flag;
+						a.onclick = (event) => {
+							createPage(event.currentTarget.id);
+							
+						}
+						var div = document.createElement('div');
+						div.className = 'flag';
+						div.appendChild(a);
+						
+						document.getElementById('countryList').appendChild(div);
+					}
+				});
+			</script>
+
+			<div id="countryList" class="countryList">
+			</div>
+		</div>
+
+		<footer class="endbar">
+			<div class="leftpart">
+				<div class="titre-endbar">Nos ressources</div>
+				<a href="#">Support</a>
+				<a href="#">Email</a>
+				<a href="#">Liscense</a>
+				<a href="#">GitHub</a>
+			</div>
+			<div class="rightpart">
+				<div class="titre-endbar">Nos resaux sociaux</div>
+				<a href="https://www.youtube.com/watch?v=DLzxrzFCyOs" target="__blank">Youtube</a>
+				<a href="#">Twitter</a>
+				<a href="#">Facebook</a>
+				<a href="#">Instagram</a>
+			</div>
+			
+
+		</footer>
